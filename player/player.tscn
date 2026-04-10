@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://tds350jq3v6v"]
+
+[ext_resource type="Script" uid="uid://c44cig6imfbux" path="res://player/QuakelikeController/playerMovement.gd" id="1_yw30f"]
+[ext_resource type="Curve" uid="uid://b6rd42lxqe5ns" path="res://player/QuakelikeController/slideDragCurve.tres" id="2_qjkh3"]
+[ext_resource type="Curve" uid="uid://cpngxrfh55ani" path="res://player/QuakelikeController/slopeAngleCurve.tres" id="3_g6k8r"]
+[ext_resource type="Curve" uid="uid://djgi5bfx47o2r" path="res://player/QuakelikeController/wallRunCurve.tres" id="4_boad6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e0rkc"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jsqih"]
+
+[node name="player" type="CharacterBody3D" unique_id=1184889588]
+script = ExtResource("1_yw30f")
+slideDragCurve = ExtResource("2_qjkh3")
+slopeAngleDragCurve = ExtResource("3_g6k8r")
+wallrunCurve = ExtResource("4_boad6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=843046446]
+shape = SubResource("CapsuleShape3D_e0rkc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1426669494]
+mesh = SubResource("CapsuleMesh_jsqih")
+
+[node name="head" type="Node3D" parent="." unique_id=1066521040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.60644764, 0)
+
+[node name="Camera3D" type="Camera3D" parent="head" unique_id=115996747]
+fov = 79.78908

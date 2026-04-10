@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c1fodh5lpq0fx"]
+
+[ext_resource type="PackedScene" uid="uid://ba42t1mx4ybtk" path="res://assets/models/levels/flat_level02.glb" id="1_edxnv"]
+[ext_resource type="Texture2D" uid="uid://c33uiucypik85" path="res://assets/textures/depositphotos_42660323-stock-photo-seamless-texture-of-stone-floor-3648073355.jpg" id="2_wuweq"]
+[ext_resource type="PackedScene" uid="uid://cl64r1noqxck2" path="res://player/player_quake.tscn" id="3_wuweq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2otpw"]
+albedo_texture = ExtResource("2_wuweq")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wuweq"]
+points = PackedVector3Array(1.0158731, 0.015873017, 1.0158731, -1.0158731, -0.015873017, -1.0158731, -1.0158731, 0.015873017, -1.0158731, 1.0158731, -0.015873017, -1.0158731, -1.0158731, -0.015873017, 1.0158731, -1.0158731, 0.015873017, 1.0158731, 1.0158731, 0.015873017, -1.0158731, 1.0158731, -0.015873017, 1.0158731)
+
+[node name="flat_level01" unique_id=897449822 instance=ExtResource("1_edxnv")]
+
+[node name="Plane" parent="." index="0" unique_id=1831802747]
+material_override = SubResource("StandardMaterial3D_2otpw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plane" index="0" unique_id=1681855634]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/StaticBody3D" index="0" unique_id=1629070507]
+shape = SubResource("ConvexPolygonShape3D_wuweq")
+
+[node name="Player" parent="." index="1" unique_id=2002085790 instance=ExtResource("3_wuweq")]

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cl64r1noqxck2"]
+
+[ext_resource type="PackedScene" uid="uid://callt40l2nsen" path="res://player/QuakelikeController/player.tscn" id="1_o0af1"]
+[ext_resource type="Script" uid="uid://dqqkcklolg4ir" path="res://player/hand.gd" id="2_gc6nj"]
+[ext_resource type="PackedScene" uid="uid://dmohjjxca1cjf" path="res://scenes/weapons/ak_47.tscn" id="3_s0d8c"]
+
+[node name="Player" unique_id=2002085790 instance=ExtResource("1_o0af1")]
+
+[node name="Camera" parent="Head/CameraHolder/CameraShaker" parent_id_path=PackedInt32Array(1956527210) index="0" unique_id=198972734]
+transform = Transform3D(0.9997844, 0.020595921, 0.0026510404, -0.020600863, 0.99978626, 0.0018503023, -0.0026123628, -0.001904536, 0.99999493, 6.5422135e-08, -1.2000697, -0.00973051)
+
+[node name="GrappleRay" parent="Head/CameraHolder/CameraShaker/Camera" index="0" unique_id=904322097]
+transform = Transform3D(0.9525808, 0.3042856, -0.0009648616, -0.30428723, 0.9525782, -0.0022418913, 0.00023732055, 0.0024294243, 0.99999696, 0.00758479, -0.5546658, -0.3639209)
+
+[node name="Rope" parent="Head/CameraHolder/CameraShaker/Camera" index="1" unique_id=1107351151]
+transform = Transform3D(0.9568639, 0.29051962, 0.0031579314, -0.2904373, 0.9561955, 0.036554478, 0.00760034, -0.035894454, 0.9993269, 0.009735767, -0.5342666, -0.7340599)
+
+[node name="hand" type="Node3D" parent="Head/CameraHolder/CameraShaker/Camera" index="2" unique_id=1575777288]
+script = ExtResource("2_gc6nj")
+
+[node name="ak47" parent="Head/CameraHolder/CameraShaker/Camera/hand" index="0" unique_id=1579553215 instance=ExtResource("3_s0d8c")]
+transform = Transform3D(-0.08499523, -0.016290713, 0.9962483, -0.027918926, 0.999513, 0.013962182, -0.9959904, -0.026627459, -0.08540862, 0.136, -0.113, -0.394)
+
+[node name="CeilingCheck" parent="." index="1" unique_id=418208403]
+visible = false
+
+[node name="CollisionShape3D" parent="." index="5" unique_id=747130127]
+visible = false
