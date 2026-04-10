@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://mdsguh82jhmm"]
+
+[ext_resource type="PackedScene" uid="uid://ba42t1mx4ybtk" path="res://glb_models/flat_level02.glb" id="1_u25h4"]
+[ext_resource type="Texture2D" uid="uid://dy5osi2460cf1" path="res://level/textures/dunes.jpg" id="2_l65ya"]
+[ext_resource type="PackedScene" uid="uid://callt40l2nsen" path="res://QuakelikeController/player.tscn" id="3_l65ya"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gsdwk"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_p8v5h"]
+sky_material = SubResource("ProceduralSkyMaterial_gsdwk")
+
+[sub_resource type="Environment" id="Environment_32g0f"]
+background_mode = 2
+sky = SubResource("Sky_p8v5h")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x21kp"]
+albedo_texture = ExtResource("2_l65ya")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1ic1u"]
+data = PackedVector3Array(-1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="flat_level02" unique_id=1969220557 instance=ExtResource("1_u25h4")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0" unique_id=985543876]
+environment = SubResource("Environment_32g0f")
+
+[node name="Plane" parent="." index="1" unique_id=1591971874]
+material_override = SubResource("StandardMaterial3D_x21kp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plane" index="0" unique_id=722763069]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/StaticBody3D" index="0" unique_id=815727323]
+shape = SubResource("ConcavePolygonShape3D_1ic1u")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2" unique_id=607393717]
+transform = Transform3D(1, 0, 0, 0, -0.027607555, 0.9996189, 0, -0.9996189, -0.027607555, 0, 10.366493, 0)
+light_energy = 0.421
+
+[node name="Player" parent="." index="3" unique_id=2002085790 instance=ExtResource("3_l65ya")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33755517, 0)

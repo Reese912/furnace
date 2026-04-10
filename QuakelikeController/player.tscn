@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://callt40l2nsen"]
+
+[ext_resource type="Script" uid="uid://c44cig6imfbux" path="res://QuakelikeController/playerMovement.gd" id="1_vual4"]
+[ext_resource type="Curve" uid="uid://cidft4romtj4m" path="res://QuakelikeController/45degreecurve.tres" id="2_utu1d"]
+[ext_resource type="Curve" uid="uid://djgi5bfx47o2r" path="res://QuakelikeController/wallRunCurve.tres" id="3_2pbow"]
+[ext_resource type="Script" uid="uid://bxx8m1ft1cl3m" path="res://QuakelikeController/ProceduralCurve.gd" id="3_gl5gr"]
+[ext_resource type="Curve" uid="uid://b6rd42lxqe5ns" path="res://QuakelikeController/slideDragCurve.tres" id="3_k42sr"]
+[ext_resource type="Curve" uid="uid://cpngxrfh55ani" path="res://QuakelikeController/slopeAngleCurve.tres" id="4_7oetm"]
+[ext_resource type="PackedScene" uid="uid://delfhjlplhf4h" path="res://QuakelikeController/rope.tscn" id="4_lhrgx"]
+[ext_resource type="Script" uid="uid://t4x6sqbiatr7" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="5_14s8p"]
+[ext_resource type="Script" uid="uid://opprb5hykeh5" path="res://QuakelikeController/playerCamera.gd" id="6_m7kuq"]
+[ext_resource type="Script" uid="uid://crdi0pvwawccu" path="res://addons/shaker/data/Vector3/BaseShakerType3D.gd" id="6_qarov"]
+[ext_resource type="Resource" uid="uid://utqoywxff7vm" path="res://QuakelikeController/jumpAnim.tres" id="7_1rx65"]
+[ext_resource type="Script" uid="uid://bpn2xs246aa5b" path="res://addons/shaker/data/Vector3/ShakerTypeNoiseShake3D.gd" id="7_dascu"]
+[ext_resource type="Resource" uid="uid://wkngmsk4yxqk" path="res://QuakelikeController/landAnim.tres" id="8_v06m6"]
+[ext_resource type="Script" uid="uid://2fpu6ar5i4ok" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="8_v7qid"]
+[ext_resource type="Resource" uid="uid://no4jod0yl4ul" path="res://QuakelikeController/landRot.tres" id="9_cmqbn"]
+[ext_resource type="Script" uid="uid://c34p44d5c5c06" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="9_d2tfl"]
+[ext_resource type="Resource" uid="uid://ctyc5yv3tn7yp" path="res://QuakelikeController/slideAnim.tres" id="10_qdupb"]
+[ext_resource type="Resource" uid="uid://dsvvem573xmui" path="res://QuakelikeController/wallRunAnim.tres" id="11_ted11"]
+[ext_resource type="Script" uid="uid://cgymphnjipjcu" path="res://QuakelikeController/grappleHook.gd" id="16_bvkqk"]
+[ext_resource type="AudioStream" uid="uid://63thm26uhpom" path="res://player/sfx/sfx_jump.mp3" id="21_11mgg"]
+[ext_resource type="Curve" uid="uid://buwaqh3jn5wps" path="res://QuakelikeController/grappleCurve.tres" id="21_y2j4m"]
+[ext_resource type="AudioStream" uid="uid://giubnkfjhaxd" path="res://player/sfx/sfx_grapple.wav" id="22_vyleb"]
+[ext_resource type="Script" uid="uid://ckadyrxbty441" path="res://assets/weapons/scripts/weapon_controller.gd" id="23_igwlg"]
+[ext_resource type="Resource" uid="uid://bjphmarttwfs0" path="res://assets/weapons/resources/pistol.tres" id="24_1nxav"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hwg68"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_mj65v"]
+noise = SubResource("FastNoiseLite_hwg68")
+
+[sub_resource type="Resource" id="Resource_3as0d"]
+script = ExtResource("7_dascu")
+noise_texture = SubResource("NoiseTexture3D_mj65v")
+amplitude = Vector3(0.01, 0, 0.01)
+
+[sub_resource type="Resource" id="Resource_0qhj7"]
+script = ExtResource("8_v7qid")
+RotationShake = Array[ExtResource("6_qarov")]([SubResource("Resource_3as0d")])
+
+[sub_resource type="Resource" id="Resource_jq34v"]
+script = ExtResource("9_d2tfl")
+frequency = Vector3(2, 3, 1)
+phase = Vector3(0, 0, 0)
+amplitude = Vector3(0.01, 0.1, 0)
+
+[sub_resource type="Resource" id="Resource_gc7ew"]
+script = ExtResource("8_v7qid")
+PositionShake = Array[ExtResource("6_qarov")]([SubResource("Resource_jq34v")])
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_apj3w"]
+height = 0.95
+radius = 0.45
+
+[sub_resource type="Resource" id="Resource_2e838"]
+script = ExtResource("3_gl5gr")
+curve = ExtResource("21_y2j4m")
+length = 0.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1nxav"]
+
+[node name="Player" type="CharacterBody3D" unique_id=2002085790]
+collision_layer = 2
+floor_constant_speed = true
+floor_snap_length = 0.4
+script = ExtResource("1_vual4")
+airStrafeCurve = ExtResource("2_utu1d")
+slideDragCurve = ExtResource("3_k42sr")
+slopeAngleDragCurve = ExtResource("4_7oetm")
+wallrunCurve = ExtResource("3_2pbow")
+
+[node name="Head" type="Node3D" parent="." unique_id=606708464]
+transform = Transform3D(1, 0, 0, 0, 0.99996036, -0.0089010615, 0, 0.0089010615, 0.99996036, 0, 1, 0)
+
+[node name="CameraHolder" type="Node3D" parent="Head" unique_id=514061917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CameraShaker" type="Node3D" parent="Head/CameraHolder" unique_id=1956527210]
+transform = Transform3D(1, 2.98023e-08, -1.49012e-08, -2.98023e-08, 1, 3.72529e-09, 1.49012e-08, -3.72529e-09, 1, 0, 1, 0)
+
+[node name="Camera" type="Camera3D" parent="Head/CameraHolder/CameraShaker" unique_id=198972734 node_paths=PackedStringArray("player")]
+transform = Transform3D(0.9997844, 0.020595916, 0.0026510255, -0.019675177, 0.8986942, 0.4381346, 0.006641322, -0.4380923, 0.89890563, 6.542213e-08, -1.2000694, -0.009730509)
+fov = 48.005486
+script = ExtResource("6_m7kuq")
+player = NodePath("../../../..")
+jumpAnimation = ExtResource("7_1rx65")
+landPosAnimation = ExtResource("8_v06m6")
+landRotAnimation = ExtResource("9_cmqbn")
+slideAnimation = ExtResource("10_qdupb")
+wallRunAnimation = ExtResource("11_ted11")
+
+[node name="GrappleRay" type="RayCast3D" parent="Head/CameraHolder/CameraShaker/Camera" unique_id=904322097]
+transform = Transform3D(0.95237195, 0.30485398, 0.007239985, -0.2779882, 0.87771106, -0.39031535, -0.1253435, 0.36971292, 0.9206526, 0.0104764085, -0.6951603, -0.36293006)
+target_position = Vector3(0, 0, -20)
+
+[node name="Rope" parent="Head/CameraHolder/CameraShaker/Camera" unique_id=1107351151 instance=ExtResource("4_lhrgx")]
+transform = Transform3D(0.9565512, 0.29126614, 0.013188211, -0.25641695, 0.8619094, -0.4374494, -0.13878107, 0.41506127, 0.8991464, 0.009735769, -0.5342666, -0.7340598)
+
+[node name="ShakerComponent3D" type="Node3D" parent="Head/CameraHolder/CameraShaker" unique_id=753442190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("5_14s8p")
+AutoPlay = true
+shakerPreset = SubResource("Resource_0qhj7")
+
+[node name="ShakerComponent3D2" type="Node3D" parent="Head/CameraHolder/CameraShaker" unique_id=735782561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("5_14s8p")
+AutoPlay = true
+shakerPreset = SubResource("Resource_gc7ew")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Head" unique_id=1861517931]
+transform = Transform3D(0.9999659, 0.0069778264, 0.004413724, -0.0069926158, 0.9999701, 0.0033439845, -0.0043902504, -0.0033747326, 0.9999848, 0, 1.0000002, -9.313226e-10)
+light_color = Color(0.76423377, 0.4895919, 0.32437393, 1)
+light_energy = 0.339
+light_indirect_energy = 0.579
+light_volumetric_fog_energy = 0.338
+
+[node name="CeilingCheck" type="ShapeCast3D" parent="." unique_id=418208403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_apj3w")
+target_position = Vector3(0, 0.5, 0)
+
+[node name="GrappleHook" type="Node" parent="." unique_id=672050574 node_paths=PackedStringArray("ray", "rope")]
+script = ExtResource("16_bvkqk")
+ray = NodePath("../Head/CameraHolder/CameraShaker/Camera/GrappleRay")
+minRestFraction = 0.2
+restLengthCurve = SubResource("Resource_2e838")
+rope = NodePath("../Head/CameraHolder/CameraShaker/Camera/Rope")
+
+[node name="sfx_jump" type="AudioStreamPlayer" parent="." unique_id=1230695451]
+stream = ExtResource("21_11mgg")
+
+[node name="sfx_grapple" type="AudioStreamPlayer" parent="." unique_id=2038449916]
+stream = ExtResource("22_vyleb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=747130127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1nxav")
+
+[node name="components" type="Node" parent="." unique_id=550912467]
+
+[node name="weapon_controller" type="Node" parent="components" unique_id=2048102809 node_paths=PackedStringArray("weapon_model_parent")]
+script = ExtResource("23_igwlg")
+current_weapon = ExtResource("24_1nxav")
+weapon_model_parent = NodePath("../../Head/CameraHolder/CameraShaker/Camera")
