@@ -22,10 +22,10 @@ var restLength = 5.0
 
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("shoot") and !launched:
+	if Input.is_action_just_pressed("grapple") and !launched:
 		launch()
 	
-	if Input.is_action_just_released("shoot"):
+	if Input.is_action_just_released("grapple"):
 		retract()
 	
 	if launched:

@@ -1,28 +1,150 @@
 [gd_scene format=3 uid="uid://cl64r1noqxck2"]
 
-[ext_resource type="PackedScene" uid="uid://callt40l2nsen" path="res://player/QuakelikeController/player.tscn" id="1_o0af1"]
-[ext_resource type="Script" uid="uid://dqqkcklolg4ir" path="res://player/hand.gd" id="2_gc6nj"]
-[ext_resource type="PackedScene" uid="uid://dmohjjxca1cjf" path="res://scenes/weapons/ak_47.tscn" id="3_s0d8c"]
+[ext_resource type="Script" uid="uid://c44cig6imfbux" path="res://player/QuakelikeController/playerMovement.gd" id="1_rbs5d"]
+[ext_resource type="Script" uid="uid://dqqkcklolg4ir" path="res://player/scripts/hand.gd" id="2_gc6nj"]
+[ext_resource type="Curve" uid="uid://cidft4romtj4m" path="res://player/QuakelikeController/45degreecurve.tres" id="2_jl34o"]
+[ext_resource type="Curve" uid="uid://b6rd42lxqe5ns" path="res://player/QuakelikeController/slideDragCurve.tres" id="3_4fmgs"]
+[ext_resource type="PackedScene" uid="uid://djnoe4mwy07j1" path="res://scenes/weapons/ak_47.tscn" id="3_s0d8c"]
+[ext_resource type="Curve" uid="uid://cpngxrfh55ani" path="res://player/QuakelikeController/slopeAngleCurve.tres" id="4_rmixp"]
+[ext_resource type="Curve" uid="uid://djgi5bfx47o2r" path="res://player/QuakelikeController/wallRunCurve.tres" id="5_8cyov"]
+[ext_resource type="Script" uid="uid://opprb5hykeh5" path="res://player/QuakelikeController/playerCamera.gd" id="6_1lalc"]
+[ext_resource type="Resource" uid="uid://utqoywxff7vm" path="res://player/QuakelikeController/jumpAnim.tres" id="7_on6kb"]
+[ext_resource type="Resource" uid="uid://wkngmsk4yxqk" path="res://player/QuakelikeController/landAnim.tres" id="8_y5r47"]
+[ext_resource type="Resource" uid="uid://no4jod0yl4ul" path="res://player/QuakelikeController/landRot.tres" id="9_bwhjg"]
+[ext_resource type="Resource" uid="uid://ctyc5yv3tn7yp" path="res://player/QuakelikeController/slideAnim.tres" id="10_1lshr"]
+[ext_resource type="Resource" uid="uid://dsvvem573xmui" path="res://player/QuakelikeController/wallRunAnim.tres" id="11_d8vka"]
+[ext_resource type="PackedScene" uid="uid://delfhjlplhf4h" path="res://player/QuakelikeController/rope.tscn" id="12_vp0bw"]
+[ext_resource type="Script" uid="uid://t4x6sqbiatr7" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="14_quee6"]
+[ext_resource type="Script" uid="uid://crdi0pvwawccu" path="res://addons/shaker/data/Vector3/BaseShakerType3D.gd" id="15_2gwm4"]
+[ext_resource type="Script" uid="uid://bpn2xs246aa5b" path="res://addons/shaker/data/Vector3/ShakerTypeNoiseShake3D.gd" id="16_ffemt"]
+[ext_resource type="Script" uid="uid://2fpu6ar5i4ok" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="17_5ugwy"]
+[ext_resource type="Script" uid="uid://c34p44d5c5c06" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="18_kmhmu"]
+[ext_resource type="Script" uid="uid://cgymphnjipjcu" path="res://player/QuakelikeController/grappleHook.gd" id="19_fcq87"]
+[ext_resource type="Curve" uid="uid://buwaqh3jn5wps" path="res://player/QuakelikeController/grappleCurve.tres" id="20_akfd2"]
+[ext_resource type="Script" uid="uid://bxx8m1ft1cl3m" path="res://player/QuakelikeController/ProceduralCurve.gd" id="21_lyjxk"]
+[ext_resource type="AudioStream" uid="uid://63thm26uhpom" path="res://player/sfx/sfx_jump.mp3" id="22_5i1ou"]
+[ext_resource type="AudioStream" uid="uid://giubnkfjhaxd" path="res://player/sfx/sfx_grapple.wav" id="23_blvgu"]
 
-[node name="Player" unique_id=2002085790 instance=ExtResource("1_o0af1")]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hwg68"]
 
-[node name="Camera" parent="Head/CameraHolder/CameraShaker" parent_id_path=PackedInt32Array(1956527210) index="0" unique_id=198972734]
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_mj65v"]
+noise = SubResource("FastNoiseLite_hwg68")
+
+[sub_resource type="Resource" id="Resource_3as0d"]
+script = ExtResource("16_ffemt")
+noise_texture = SubResource("NoiseTexture3D_mj65v")
+amplitude = Vector3(0.01, 0, 0.01)
+
+[sub_resource type="Resource" id="Resource_0qhj7"]
+script = ExtResource("17_5ugwy")
+RotationShake = Array[ExtResource("15_2gwm4")]([SubResource("Resource_3as0d")])
+
+[sub_resource type="Resource" id="Resource_jq34v"]
+script = ExtResource("18_kmhmu")
+frequency = Vector3(2, 3, 1)
+phase = Vector3(0, 0, 0)
+amplitude = Vector3(0.01, 0.1, 0)
+
+[sub_resource type="Resource" id="Resource_gc7ew"]
+script = ExtResource("17_5ugwy")
+PositionShake = Array[ExtResource("15_2gwm4")]([SubResource("Resource_jq34v")])
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_apj3w"]
+height = 0.95
+radius = 0.45
+
+[sub_resource type="Resource" id="Resource_2e838"]
+script = ExtResource("21_lyjxk")
+curve = ExtResource("20_akfd2")
+length = 0.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1nxav"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rbs5d"]
+
+[node name="Player" type="CharacterBody3D" unique_id=2002085790]
+collision_layer = 2
+floor_constant_speed = true
+floor_snap_length = 0.4
+script = ExtResource("1_rbs5d")
+airStrafeCurve = ExtResource("2_jl34o")
+slideDragCurve = ExtResource("3_4fmgs")
+slopeAngleDragCurve = ExtResource("4_rmixp")
+wallrunCurve = ExtResource("5_8cyov")
+
+[node name="Head" type="Node3D" parent="." unique_id=606708464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5242758, 0)
+
+[node name="CameraHolder" type="Node3D" parent="Head" unique_id=514061917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CameraShaker" type="Node3D" parent="Head/CameraHolder" unique_id=1956527210]
+
+[node name="Camera" type="Camera3D" parent="Head/CameraHolder/CameraShaker" unique_id=198972734 node_paths=PackedStringArray("player")]
 transform = Transform3D(0.9997844, 0.020595921, 0.0026510404, -0.020600863, 0.99978626, 0.0018503023, -0.0026123628, -0.001904536, 0.99999493, 6.5422135e-08, -1.2000697, -0.00973051)
+fov = 48.005486
+script = ExtResource("6_1lalc")
+player = NodePath("../../../..")
+jumpAnimation = ExtResource("7_on6kb")
+landPosAnimation = ExtResource("8_y5r47")
+landRotAnimation = ExtResource("9_bwhjg")
+slideAnimation = ExtResource("10_1lshr")
+wallRunAnimation = ExtResource("11_d8vka")
 
-[node name="GrappleRay" parent="Head/CameraHolder/CameraShaker/Camera" index="0" unique_id=904322097]
+[node name="GrappleRay" type="RayCast3D" parent="Head/CameraHolder/CameraShaker/Camera" unique_id=904322097]
 transform = Transform3D(0.9525808, 0.3042856, -0.0009648616, -0.30428723, 0.9525782, -0.0022418913, 0.00023732055, 0.0024294243, 0.99999696, 0.00758479, -0.5546658, -0.3639209)
+target_position = Vector3(0, 0, -20)
 
-[node name="Rope" parent="Head/CameraHolder/CameraShaker/Camera" index="1" unique_id=1107351151]
-transform = Transform3D(0.9568639, 0.29051962, 0.0031579314, -0.2904373, 0.9561955, 0.036554478, 0.00760034, -0.035894454, 0.9993269, 0.009735767, -0.5342666, -0.7340599)
+[node name="Rope" parent="Head/CameraHolder/CameraShaker/Camera" unique_id=1107351151 instance=ExtResource("12_vp0bw")]
+transform = Transform3D(0.9568639, 0.29051962, 0.003157931, -0.2904373, 0.9561955, 0.036554478, 0.00760034, -0.035894454, 0.99932694, 0.00900943, -0.5347961, -0.45602286)
 
-[node name="hand" type="Node3D" parent="Head/CameraHolder/CameraShaker/Camera" index="2" unique_id=1575777288]
+[node name="hand" type="Node3D" parent="Head/CameraHolder/CameraShaker/Camera" unique_id=1575777288]
 script = ExtResource("2_gc6nj")
 
-[node name="ak47" parent="Head/CameraHolder/CameraShaker/Camera/hand" index="0" unique_id=1579553215 instance=ExtResource("3_s0d8c")]
-transform = Transform3D(-0.08499523, -0.016290713, 0.9962483, -0.027918926, 0.999513, 0.013962182, -0.9959904, -0.026627459, -0.08540862, 0.136, -0.113, -0.394)
+[node name="ak_47" parent="Head/CameraHolder/CameraShaker/Camera/hand" unique_id=357555153 instance=ExtResource("3_s0d8c")]
+transform = Transform3D(0.007376148, -0.022561492, 0.9997182, -0.017447913, 0.99959064, 0.022687333, -0.9998206, -0.017610347, 0.006979475, 0.192, -0.144, -0.212)
 
-[node name="CeilingCheck" parent="." index="1" unique_id=418208403]
-visible = false
+[node name="ShakerComponent3D" type="Node3D" parent="Head/CameraHolder/CameraShaker" unique_id=753442190]
+script = ExtResource("14_quee6")
+AutoPlay = true
+shakerPreset = SubResource("Resource_0qhj7")
 
-[node name="CollisionShape3D" parent="." index="5" unique_id=747130127]
+[node name="ShakerComponent3D2" type="Node3D" parent="Head/CameraHolder/CameraShaker" unique_id=735782561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.88860846, 0)
+script = ExtResource("14_quee6")
+AutoPlay = true
+shakerPreset = SubResource("Resource_gc7ew")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Head" unique_id=1861517931]
+transform = Transform3D(0.99996597, 0.0069778278, 0.0044137174, -0.006992616, 0.99996996, 0.0033439826, -0.004390251, -0.003374732, 0.9999847, 0, 0.2285645, -9.313226e-10)
+light_color = Color(0.76423377, 0.4895919, 0.32437393, 1)
+light_energy = 1.381
+light_indirect_energy = 0.679
+light_volumetric_fog_energy = 0.338
+
+[node name="CeilingCheck" type="ShapeCast3D" parent="." unique_id=418208403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
+shape = SubResource("CylinderShape3D_apj3w")
+target_position = Vector3(0, 0.5, 0)
+
+[node name="GrappleHook" type="Node" parent="." unique_id=672050574 node_paths=PackedStringArray("ray", "rope")]
+script = ExtResource("19_fcq87")
+ray = NodePath("../Head/CameraHolder/CameraShaker/Camera/GrappleRay")
+minRestFraction = 0.2
+restLengthCurve = SubResource("Resource_2e838")
+rope = NodePath("../Head/CameraHolder/CameraShaker/Camera/Rope")
+
+[node name="sfx_jump" type="AudioStreamPlayer" parent="." unique_id=1230695451]
+stream = ExtResource("22_5i1ou")
+
+[node name="sfx_grapple" type="AudioStreamPlayer" parent="." unique_id=2038449916]
+stream = ExtResource("23_blvgu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=747130127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1nxav")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=296433205]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_rbs5d")

@@ -19,6 +19,10 @@ func _process(delta: float) -> void:
 
 			if collider.is_in_group("enemy"):
 				collider.hp -= damage
+	if Input.is_action_pressed("inspect") and not anim.is_playing():
+		anim.play("inspect")
+		if Input.is_action_pressed("shoot"):
+			anim.stop("inspect")
 				
 
 

@@ -10,4 +10,4 @@ func _ready() -> void:
 		w.visible = false
 		w.anim.play("unequip")
 	weapons[selected_weapon].visible = true
-	weapons[selected_weapon].anim.play = 'equip'
+	weapons[selected_weapon].anim.play("equip")
