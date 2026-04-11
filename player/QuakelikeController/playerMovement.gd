@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name PlayerMovement
 
-var speed : float = 20
+var move_speed : float = 20
 var gravity : float = 20
 var jump : float = 15
 
@@ -11,13 +11,16 @@ var mouse_sense : float = 0.4
 var direction : Vector3
 var gravity_vec : Vector3
 
+var hp = 100
+
 @onready var head : Node3D = $Head
 @onready var cameraHolder : Node3D = $Head/CameraHolder
 @onready var collider : CollisionShape3D = $CollisionShape3D
 @onready var grappleHook: GrappleHook = $GrappleHook
 @onready var sfx_jump: AudioStreamPlayer = $sfx_jump
 @onready var sfx_grapple: AudioStreamPlayer = $sfx_grapple
-
+@onready var sfx_walk: AudioStreamPlayer = $sfx_walk
+@onready var text_hp: Label = $ui/text_hp
 
 
 
@@ -141,6 +144,7 @@ func _process(delta : float) -> void:
 
 
 func _physics_process(delta : float) -> void:	
+	$ui/text_hp.text = "HP: " + str(hp)
 	match currentState:
 		MOVESTATES.GROUND:
 			ground(delta)
@@ -262,7 +266,7 @@ func wallrun(delta : float):
 	var rightWallNormal : Vector3 = get_wall_normal().rotated(Vector3.UP, -PI/2)
 	var newDir : Vector3 = leftWallNormal if leftWallNormal.angle_to(wallrunStartVel) < rightWallNormal.angle_to(wallrunStartVel) else rightWallNormal
 	
-	velocity = newDir.normalized() * clamp(wallrunStartVel.length(), speed/2, speed * 2.0)
+	velocity = newDir.normalized() * clamp(wallrunStartVel.length(), move_speed/2, move_speed * 2.0)
 	if prevWallNormal != get_wall_normal():
 		velocity -= get_wall_normal() * 2
 	else:
@@ -349,15 +353,20 @@ func handleCrouch(delta : float, forceCrouch : bool = false, forceUncrouch : boo
 	return crouching
 
 
-func move(delta : float, accel : float, drag : float, speed : float = speed) -> void:
+func move(delta : float, accel : float, drag : float) -> void:
 	#get keyboard input
 	direction = Vector3.ZERO
 	var h_rot : float = global_transform.basis.get_euler().y
 	var f_input : float = Input.get_axis("forward", "backward")
 	var h_input : float = Input.get_action_strength("right") - Input.get_action_strength("left")
 	direction = Vector3(h_input, 0, f_input).rotated(Vector3.UP, h_rot).normalized()
+	if direction.length() > 0 and is_on_floor():
+		if not sfx_walk.playing:
+			sfx_walk.stop()
+		else:
+			sfx_walk.play()
 	
-	var wish_vel : Vector3 = direction * speed
+	var wish_vel : Vector3 = direction * move_speed
 	
 	#Airstrafing
 	match currentState:

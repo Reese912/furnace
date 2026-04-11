@@ -125,7 +125,7 @@ _data = {
 
 [node name="ak_47" type="Node3D" unique_id=357555153]
 script = ExtResource("1_jx0ug")
-damage = 3.0
+damage = 50.0
 
 [node name="model" parent="." unique_id=1236660161 instance=ExtResource("1_b1as7")]
 

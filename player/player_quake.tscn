@@ -24,6 +24,8 @@
 [ext_resource type="Script" uid="uid://bxx8m1ft1cl3m" path="res://player/QuakelikeController/ProceduralCurve.gd" id="21_lyjxk"]
 [ext_resource type="AudioStream" uid="uid://63thm26uhpom" path="res://player/sfx/sfx_jump.mp3" id="22_5i1ou"]
 [ext_resource type="AudioStream" uid="uid://giubnkfjhaxd" path="res://player/sfx/sfx_grapple.wav" id="23_blvgu"]
+[ext_resource type="AudioStream" uid="uid://dfksjvvibc5k1" path="res://player/sfx/sfx_walk.mp3" id="25_4fmgs"]
+[ext_resource type="Script" uid="uid://bxpeqoovsyiym" path="res://player/scripts/reticle.gd" id="26_rmixp"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hwg68"]
 
@@ -117,6 +119,7 @@ shakerPreset = SubResource("Resource_gc7ew")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Head" unique_id=1861517931]
 transform = Transform3D(0.99996597, 0.0069778278, 0.0044137174, -0.006992616, 0.99996996, 0.0033439826, -0.004390251, -0.003374732, 0.9999847, 0, 0.2285645, -9.313226e-10)
+visible = false
 light_color = Color(0.76423377, 0.4895919, 0.32437393, 1)
 light_energy = 1.381
 light_indirect_energy = 0.679
@@ -124,7 +127,6 @@ light_volumetric_fog_energy = 0.338
 
 [node name="CeilingCheck" type="ShapeCast3D" parent="." unique_id=418208403]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
 shape = SubResource("CylinderShape3D_apj3w")
 target_position = Vector3(0, 0.5, 0)
 
@@ -148,3 +150,42 @@ shape = SubResource("CapsuleShape3D_1nxav")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=296433205]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_rbs5d")
+
+[node name="sfx_walk" type="AudioStreamPlayer" parent="." unique_id=1329014956]
+stream = ExtResource("25_4fmgs")
+
+[node name="ui" type="Control" parent="." unique_id=1814939711]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="text_hp" type="Label" parent="ui" unique_id=1605553617]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -54.0
+offset_right = 56.0
+offset_bottom = -31.0
+grow_vertical = 0
+text = "HP: "
+
+[node name="reticle" type="CenterContainer" parent="ui" unique_id=1463665964]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("26_rmixp")
