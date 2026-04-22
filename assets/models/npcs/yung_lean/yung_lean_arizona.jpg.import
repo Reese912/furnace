@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jr55jfb3ptb2"
-path.s3tc="res://.godot/imported/jeffery_snow.jpg-b488646aeb964b9e43d353e7b4f11c07.s3tc.ctex"
+uid="uid://c86jxro5gejys"
+path.s3tc="res://.godot/imported/yung_lean_arizona.jpg-c936536303b3f8d44f3a678d3ffb0bde.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "64f4887c6b870ef1b28780a6452d948b"
+"md5": "170b8571096608ce57b81dc1f7639c46"
 }
 
 [deps]
 
-source_file="res://assets/models/npcs/low_poly_human/jeffery_snow.jpg"
-dest_files=["res://.godot/imported/jeffery_snow.jpg-b488646aeb964b9e43d353e7b4f11c07.s3tc.ctex"]
+source_file="res://assets/models/npcs/yung_lean/yung_lean_arizona.jpg"
+dest_files=["res://.godot/imported/yung_lean_arizona.jpg-c936536303b3f8d44f3a678d3ffb0bde.s3tc.ctex"]
 
 [params]
 

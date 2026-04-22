@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://hmqanjxy1ybs"
-path="res://.godot/imported/jeffery.glb-b63fec7ea42cd5e8f6c874c9030461ea.scn"
+uid="uid://bw7rnf5bvhdg8"
+path="res://.godot/imported/yung_lean.glb-d40b7a8674d0f1347e4dbd4369883b7a.scn"
 
 [deps]
 
-source_file="res://assets/models/npcs/low_poly_human/jeffery.glb"
-dest_files=["res://.godot/imported/jeffery.glb-b63fec7ea42cd5e8f6c874c9030461ea.scn"]
+source_file="res://assets/models/npcs/yung_lean/yung_lean.glb"
+dest_files=["res://.godot/imported/yung_lean.glb-d40b7a8674d0f1347e4dbd4369883b7a.scn"]
 
 [params]
 

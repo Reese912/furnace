@@ -2,23 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjvq38y1d3go8"
-path="res://.godot/imported/carlos_714162dd7d58b31a48cf455fb412233b.jpg-17bec9cfdf433a6ee629545503cf5ef5.ctex"
+uid="uid://dtftejgn1rqy7"
+path.s3tc="res://.godot/imported/yung_lean_YUNGLEAN.jpg-eaab56d9276e3172084e003ab9cf6151.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={
-"md5": "6b03b14005dd9a38e46a3950b6f4fbe5"
+"md5": "9c9d28e8fc0f43c947309851c46bdbaf"
 }
 
 [deps]
 
-source_file="res://assets/models/carlos_714162dd7d58b31a48cf455fb412233b.jpg"
-dest_files=["res://.godot/imported/carlos_714162dd7d58b31a48cf455fb412233b.jpg-17bec9cfdf433a6ee629545503cf5ef5.ctex"]
+source_file="res://assets/models/npcs/yung_lean/yung_lean_YUNGLEAN.jpg"
+dest_files=["res://.godot/imported/yung_lean_YUNGLEAN.jpg-eaab56d9276e3172084e003ab9cf6151.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -40,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

@@ -11,7 +11,7 @@ var mouse_sense : float = 0.4
 var direction : Vector3
 var gravity_vec : Vector3
 
-var hp = 10000
+var hp = 100
 
 @onready var head : Node3D = $Head
 @onready var cameraHolder : Node3D = $Head/CameraHolder
