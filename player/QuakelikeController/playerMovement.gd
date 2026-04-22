@@ -11,7 +11,7 @@ var mouse_sense : float = 0.4
 var direction : Vector3
 var gravity_vec : Vector3
 
-var hp = 100
+var hp = 10000
 
 @onready var head : Node3D = $Head
 @onready var cameraHolder : Node3D = $Head/CameraHolder
@@ -142,6 +142,16 @@ func _process(delta : float) -> void:
 	var targetFov = lerp(fov, fov + speedFovIncrease, min(velocity.length() / shakeMaxSpeed, 1.0) )
 	realCamera.fov = lerp(realCamera.fov, targetFov, fovLerpSpeed * delta)
 
+func hit(damage, dir):
+	hp -= damage
+	print("Player HP:", hp)
+
+	if hp <= 0:
+		die()
+
+func die():
+	print("player Died")
+	get_tree().reload_current_scene()
 
 func _physics_process(delta : float) -> void:	
 	$ui/text_hp.text = "HP: " + str(hp)
@@ -154,6 +164,8 @@ func _physics_process(delta : float) -> void:
 			slide(delta)
 		MOVESTATES.WALLRUNNING:
 			wallrun(delta)
+			
+	
 
 	if (Input.is_action_just_pressed("jump") or jumpQueued) and canJump:
 		canJump = false

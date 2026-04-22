@@ -3,9 +3,8 @@ extends CharacterBody3D
 var player = null
 const SPEED = 10.0
 var gravity = 9.8
-const enemy_damage = 10
+const enemy_damage = 1
 var hp = 500 
-const attack_range = 2
 
 #var status = true #true = alive ; false = dead
 
@@ -19,7 +18,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if player == null:
 		return
-	look_at(player.global_position, Vector3.UP)
+
 	# IMPORTANT: update target every frame
 	nav_agent.set_target_position(player.global_position)
 
@@ -36,11 +35,7 @@ func _physics_process(delta: float) -> void:
 
 	velocity = velocity.move_toward(new_velocity, 0.25)
 
-	
-		
-		
 	move_and_slide()
-	hit_player()
 
 func hit_by_player(damage):
 	hp -= damage
@@ -56,12 +51,3 @@ func hit_by_player(damage):
 
 		#queue_free() ##deletes enemy upon death
 		#$sfx_death.play() #only play the death sound once
-		
-func hit_player():
-	if target_in_range():
-		var dir = global_position.direction_to(player.global_position)
-		player.hit(enemy_damage,dir)
-		$sfx_enemy_attack.play()
-		
-func target_in_range():
-	return global_position.distance_to(player.global_position) < attack_range
